@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="com.obiscr.chatgpt.settings.EasyCodeState">
+    <option name="projectFiles" value="$PROJECT_DIR$/app/src/androidTest/java/com/boudour/recorderkeeper/ExampleInstrumentedTest.kt;/home/boay274145/AndroidStudioProjects/RecorderKeeper/app/src/main/java/com/boudour/recorderkeeper/CyclingFragement.kt;/home/boay274145/AndroidStudioProjects/RecorderKeeper/app/src/main/java/com/boudour/recorderkeeper/MainActivity.kt;/home/boay274145/AndroidStudioProjects/RecorderKeeper/app/src/main/java/com/boudour/recorderkeeper/RunningFragement.kt;/home/boay274145/AndroidStudioProjects/RecorderKeeper/app/src/test/java/com/boudour/recorderkeeper/ExampleUnitTest.kt" />
+  </component>
+</project>
