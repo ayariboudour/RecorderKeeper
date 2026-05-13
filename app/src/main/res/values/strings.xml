@@ -3,8 +3,12 @@
     <string name="running">Running</string>
     <string name="cycling">Cycling</string>
     <string name="running_image_description">Running Image</string>
+    <string name="cycling_image_description">Cycling Image</string>
     <string name="marthon_heading">Marthon</string>
     <string name="half_marathon_heading">Half Marathon</string>
     <string name="ten_km_heading">10km</string>
     <string name="five_km_heading">5km</string>
+    <string name="longest_ride_heading">Longest Ride</string>
+    <string name="biggest_climb_heading">Biggest Climb</string>
+    <string name="best_average_speed_heading">Best Average Speed</string>
 </resources>
