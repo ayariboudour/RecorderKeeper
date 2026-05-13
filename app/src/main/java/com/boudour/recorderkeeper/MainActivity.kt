@@ -1,6 +1,9 @@
 package com.boudour.recorderkeeper
 
 import android.os.Bundle
+import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -8,8 +11,9 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import com.boudour.recorderkeeper.databinding.ActivityMainBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -19,31 +23,30 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.buttonCycling.setOnClickListener {
-            onCyclingClicked()
-        }
-        binding.buttonRunning.setOnClickListener {
-            onRunningClicked()
-        }
+        binding.bottomNav.setOnNavigationItemSelectedListener(this)
     }
 
-    /**
-     * add fragement transaction For running
-     */
     private fun onRunningClicked() {
-        // add fragement transaction
         supportFragmentManager.commit {
             replace(R.id.frame_contentt, RunningFragement())
         }
     }
 
-    /**
-     * add fragement transaction For cycling
-     */
     private fun onCyclingClicked() {
-        // add fragement transaction
         supportFragmentManager.commit {
             replace(R.id.frame_contentt, CyclingFragement())
+        }
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.nav_cycling) {
+            onCyclingClicked()
+            return true
+        } else if (item.itemId == R.id.nav_running) {
+            onRunningClicked()
+            return true
+        } else {
+            return false
         }
     }
 }
