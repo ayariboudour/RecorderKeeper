@@ -1,7 +1,9 @@
 package com.boudour.recorderkeeper
 
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+
 import com.boudour.recorderkeeper.databinding.ActivityEditCyclingRecordBinding
 
 class EditCyclingRecordActivity : AppCompatActivity() {
@@ -11,7 +13,7 @@ class EditCyclingRecordActivity : AppCompatActivity() {
         binding = ActivityEditCyclingRecordBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val distance = intent.getStringExtra("Distance")
-        title = "$distance Record"
+        val record = intent.getStringExtra("Record")
+        title = "$record Record"
     }
 }

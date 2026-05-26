@@ -31,9 +31,9 @@ class CyclingFragement : Fragment() {
         binding.containerBestAverageSpeed.setOnClickListener { launchCyclingRecordScreen("Best Average Speed") }
     }
 
-    private fun launchCyclingRecordScreen(distance: String) {
+    private fun launchCyclingRecordScreen(record: String) {
         val intent = Intent(context, EditCyclingRecordActivity::class.java)
-        intent.putExtra("Distance", distance)
+        intent.putExtra("Record", record)
         startActivity(intent)
     }
 
