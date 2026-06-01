@@ -1,7 +1,6 @@
-package com.boudour.recorderkeeper
+package com.boudour.recorderkeeper.cycling
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 
 import com.boudour.recorderkeeper.databinding.ActivityEditCyclingRecordBinding

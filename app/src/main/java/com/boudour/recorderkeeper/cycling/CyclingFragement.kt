@@ -1,4 +1,4 @@
-package com.boudour.recorderkeeper
+package com.boudour.recorderkeeper.cycling
 
 import android.content.Intent
 import android.os.Bundle

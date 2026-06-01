@@ -8,7 +8,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/frame_contentt"
-        android:name="com.boudour.recorderkeeper.RunningFragement"
+        android:name="com.boudour.recorderkeeper.running.RunningFragement"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/bottom_nav"
