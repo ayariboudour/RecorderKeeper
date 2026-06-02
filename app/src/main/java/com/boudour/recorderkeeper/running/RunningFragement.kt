@@ -1,5 +1,6 @@
 package com.boudour.recorderkeeper.running
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -24,9 +25,28 @@ class RunningFragement : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupClickListeners()
+        displayRunningRecords()
     }
 
-    private fun setupClickListeners(){
+    override fun onResume() {
+        super.onResume()
+        displayRunningRecords()
+    }
+
+    private fun displayRunningRecords() {
+        val runningPreferences = requireContext().getSharedPreferences("running", Context.MODE_PRIVATE)
+
+        binding.textView5kmValue.text = runningPreferences.getString("5km record", null)
+        binding.textView5kmDate.text = runningPreferences.getString("5km date", null)
+        binding.textView10kmValue.text = runningPreferences.getString("10km record", null)
+        binding.textView10kmDate.text = runningPreferences.getString("10km date", null)
+        binding.textViewHalfMarathonValue.text = runningPreferences.getString("Half Marathon record", null)
+        binding.textViewHalfMarathonDate.text = runningPreferences.getString("Half Marathon date", null)
+        binding.textViewMarathonValue.text = runningPreferences.getString("Marathon record", null)
+        binding.textViewMarathonDate.text = runningPreferences.getString("Marathon date", null)
+    }
+
+    private fun setupClickListeners() {
         binding.container5km.setOnClickListener {
             launchRunningRecordScreen("5km")
         }
@@ -42,7 +62,7 @@ class RunningFragement : Fragment() {
     }
 
     private fun launchRunningRecordScreen(distance: String) {
-       val intent = Intent(context, EditRunningRecordActivity::class.java)
+        val intent = Intent(context, EditRunningRecordActivity::class.java)
         intent.putExtra("Distance", distance)
         startActivity(intent)
     }

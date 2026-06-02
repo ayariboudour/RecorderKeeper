@@ -8,6 +8,7 @@ import com.boudour.recorderkeeper.databinding.ActivityEditRunningRecordBinding
 
 class EditRunningRecordActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEditRunningRecordBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEditRunningRecordBinding.inflate(layoutInflater)
@@ -16,16 +17,29 @@ class EditRunningRecordActivity : AppCompatActivity() {
         val distance = intent.getStringExtra("Distance")
         title = "$distance Record"
 
-        binding.buttonSave.setOnClickListener { saveRecord(distance) }
+        // 1. Load the record when the activity starts
+        displayRecord(distance)
+
+        binding.buttonSave.setOnClickListener {
+            saveRecord(distance)
+            finish() // Go back to the previous screen after saving
+        }
     }
+
+    private fun displayRecord(distance: String?) {
+        val runningPreference = getSharedPreferences("running", Context.MODE_PRIVATE)
+        binding.editTextRecord.setText(runningPreference.getString("$distance record", null))
+        binding.editTextDate.setText(runningPreference.getString("$distance date", null))
+    }
+
     private fun saveRecord(distance: String?) {
         val record = binding.editTextRecord.text.toString()
         val date = binding.editTextDate.text.toString()
 
-        val runningPreference = getSharedPreferences("Running", Context.MODE_PRIVATE)
+        val runningPreference = getSharedPreferences("running", Context.MODE_PRIVATE)
         runningPreference.edit {
-            putString("$distance Record", record)
-            putString("$distance Date", date)
+            putString("$distance record", record)
+            putString("$distance date", date)
         }
     }
 }
