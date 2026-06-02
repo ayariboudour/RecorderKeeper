@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.boudour.recorderkeeper.databinding.FragementRunningBinding
+import com.boudour.recorderkeeper.editRecord.EditRecordActivity
 
 class RunningFragement : Fragment() {
 
@@ -62,8 +63,8 @@ class RunningFragement : Fragment() {
     }
 
     private fun launchRunningRecordScreen(distance: String) {
-        val intent = Intent(context, EditRunningRecordActivity::class.java)
-        intent.putExtra("Distance", distance)
+        val intent = Intent(context, EditRecordActivity::class.java)
+        intent.putExtra("screen_data", EditRecordActivity.ScreenData(distance, "running", "Time"))
         startActivity(intent)
     }
 }
