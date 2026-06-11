@@ -7,8 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.boudour.recorderkeeper.RUNNING
 import com.boudour.recorderkeeper.databinding.FragementRunningBinding
 import com.boudour.recorderkeeper.editRecord.EditRecordActivity
+import com.boudour.recorderkeeper.editRecord.INTENT_EXTRA_SCREEN_DATA
 
 class RunningFragement : Fragment() {
 
@@ -34,14 +36,17 @@ class RunningFragement : Fragment() {
     }
 
     private fun displayRunningRecords() {
-        val runningPreferences = requireContext().getSharedPreferences("running", Context.MODE_PRIVATE)
+        val runningPreferences =
+            requireContext().getSharedPreferences(RUNNING, Context.MODE_PRIVATE)
 
         binding.textView5kmValue.text = runningPreferences.getString("5km record", null)
         binding.textView5kmDate.text = runningPreferences.getString("5km date", null)
         binding.textView10kmValue.text = runningPreferences.getString("10km record", null)
         binding.textView10kmDate.text = runningPreferences.getString("10km date", null)
-        binding.textViewHalfMarathonValue.text = runningPreferences.getString("Half Marathon record", null)
-        binding.textViewHalfMarathonDate.text = runningPreferences.getString("Half Marathon date", null)
+        binding.textViewHalfMarathonValue.text =
+            runningPreferences.getString("Half Marathon record", null)
+        binding.textViewHalfMarathonDate.text =
+            runningPreferences.getString("Half Marathon date", null)
         binding.textViewMarathonValue.text = runningPreferences.getString("Marathon record", null)
         binding.textViewMarathonDate.text = runningPreferences.getString("Marathon date", null)
     }
@@ -63,7 +68,10 @@ class RunningFragement : Fragment() {
 
     private fun launchRunningRecordScreen(distance: String) {
         val intent = Intent(context, EditRecordActivity::class.java)
-        intent.putExtra("screen_data", EditRecordActivity.ScreenData(distance, "running", "Time"))
+        intent.putExtra(
+            INTENT_EXTRA_SCREEN_DATA,
+            EditRecordActivity.ScreenData(distance, RUNNING, "Time")
+        )
         startActivity(intent)
     }
 }

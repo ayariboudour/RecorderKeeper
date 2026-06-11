@@ -7,8 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.boudour.recorderkeeper.CYCLING
 import com.boudour.recorderkeeper.databinding.FragementCyclingBinding
 import com.boudour.recorderkeeper.editRecord.EditRecordActivity
+import com.boudour.recorderkeeper.editRecord.INTENT_EXTRA_SCREEN_DATA
 
 class CyclingFragement : Fragment() {
     private lateinit var binding: FragementCyclingBinding
@@ -34,7 +36,7 @@ class CyclingFragement : Fragment() {
 
     private fun displayCyclingRecords() {
         val cyclingPreferences =
-            requireContext().getSharedPreferences("cycling", Context.MODE_PRIVATE)
+            requireContext().getSharedPreferences(CYCLING, Context.MODE_PRIVATE)
 
         binding.textViewLongestRideValue.text =
             cyclingPreferences.getString("Longest Ride record", null)
@@ -74,8 +76,8 @@ class CyclingFragement : Fragment() {
     private fun launchCyclingRecordScreen(record: String, recordFieldHint: String) {
         val intent = Intent(context, EditRecordActivity::class.java)
         intent.putExtra(
-            "screen_data",
-            EditRecordActivity.ScreenData(record, "cycling", recordFieldHint)
+            INTENT_EXTRA_SCREEN_DATA,
+            EditRecordActivity.ScreenData(record, CYCLING, recordFieldHint)
         )
         startActivity(intent)
     }

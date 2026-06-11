@@ -13,9 +13,14 @@ import com.boudour.recorderkeeper.running.RunningFragement
 import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.snackbar.Snackbar
 
+const val RUNNING = "running"
+const val CYCLING = "cycling"
+const val ALL = "all"
+
 class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListener {
 
     private lateinit var binding: ActivityMainBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,17 +40,17 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
         val menuClickedHandled =
             when (item.itemId) {
                 R.id.reset_running -> {
-                    showConfirmationDialog("running")
+                    showConfirmationDialog(RUNNING)
                     true
                 }
 
                 R.id.reset_cycling -> {
-                    showConfirmationDialog("cycling")
+                    showConfirmationDialog(CYCLING)
                     true
                 }
 
                 R.id.reset_all -> {
-                    showConfirmationDialog("all")
+                    showConfirmationDialog(ALL)
                     true
                 }
 
@@ -63,11 +68,11 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
             .setMessage("Are you sure you want to reset records?")
             .setPositiveButton("Yes") { _, _ ->
                 when (selection) {
-                    "cycling" -> getSharedPreferences(selection, MODE_PRIVATE).edit { clear() }
-                    "running" -> getSharedPreferences(selection, MODE_PRIVATE).edit { clear() }
+                    RUNNING -> getSharedPreferences(selection, MODE_PRIVATE).edit { clear() }
+                    CYCLING -> getSharedPreferences(selection, MODE_PRIVATE).edit { clear() }
                     else -> {
-                        getSharedPreferences("cycling", MODE_PRIVATE).edit { clear() }
-                        getSharedPreferences("running", MODE_PRIVATE).edit { clear() }
+                        getSharedPreferences(CYCLING, MODE_PRIVATE).edit { clear() }
+                        getSharedPreferences(RUNNING, MODE_PRIVATE).edit { clear() }
                     }
                 }
                 refresh()

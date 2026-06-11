@@ -7,20 +7,30 @@ import androidx.core.content.edit
 import com.boudour.recorderkeeper.databinding.ActivityEditRecordBinding
 import java.io.Serializable
 
+const val INTENT_EXTRA_SCREEN_DATA = "screen_data"
+
 class EditRecordActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityEditRecordBinding
 
     private val screenData: ScreenData by lazy {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getSerializableExtra("screen_data", ScreenData::class.java) as ScreenData
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getSerializableExtra(
+                INTENT_EXTRA_SCREEN_DATA,
+                ScreenData::class.java
+            ) as ScreenData
         } else {
             @Suppress("DEPRECATION")
-            intent.getSerializableExtra("screen_data") as ScreenData
+            intent.getSerializableExtra(INTENT_EXTRA_SCREEN_DATA) as ScreenData
         }
     }
 
-    private val recordPreferences by lazy { getSharedPreferences(screenData.sharedPreferencesName, MODE_PRIVATE) }
+    private val recordPreferences by lazy {
+        getSharedPreferences(
+            screenData.sharedPreferencesName,
+            MODE_PRIVATE
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,10 +42,10 @@ class EditRecordActivity : AppCompatActivity() {
 
     private fun setupUi() {
         title = "${screenData.record} Record"
-        
+
         // Use the TextInputLayout ID (textInputRecord) instead of the EditText ID
         binding.textInputRecord.hint = screenData.recordFieldHint
-        
+
         binding.buttonSave.setOnClickListener {
             saveRecord()
             finish()
@@ -47,7 +57,12 @@ class EditRecordActivity : AppCompatActivity() {
     }
 
     private fun displayRecord() {
-        binding.editTextRecord.setText(recordPreferences.getString("${screenData.record} record", null))
+        binding.editTextRecord.setText(
+            recordPreferences.getString(
+                "${screenData.record} record",
+                null
+            )
+        )
         binding.editTextDate.setText(recordPreferences.getString("${screenData.record} date", null))
     }
 
@@ -67,10 +82,10 @@ class EditRecordActivity : AppCompatActivity() {
             remove("${screenData.record} date")
         }
     }
-    
+
     data class ScreenData(
         val record: String,
         val sharedPreferencesName: String,
         val recordFieldHint: String,
-    ): Serializable
+    ) : Serializable
 }
