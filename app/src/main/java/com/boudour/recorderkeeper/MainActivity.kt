@@ -3,6 +3,7 @@ package com.boudour.recorderkeeper
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
 import androidx.fragment.app.commit
@@ -33,18 +34,17 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
         val menuClickedHandled =
             when (item.itemId) {
                 R.id.reset_running -> {
-                    getSharedPreferences("running", MODE_PRIVATE).edit { clear() }
+                    showConfirmationDialog("running")
                     true
                 }
 
                 R.id.reset_cycling -> {
-                    getSharedPreferences("cycling", MODE_PRIVATE).edit { clear() }
+                    showConfirmationDialog("cycling")
                     true
                 }
 
                 R.id.reset_all -> {
-                    getSharedPreferences("running", MODE_PRIVATE).edit { clear() }
-                    getSharedPreferences("cycling", MODE_PRIVATE).edit { clear() }
+                    showConfirmationDialog("all")
                     true
                 }
 
@@ -53,11 +53,36 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
                 }
 
             }
+
+        return menuClickedHandled
+    }
+
+    private fun showConfirmationDialog(selection: String) {
+        AlertDialog.Builder(this)
+            .setTitle("Reset $selection Records")
+            .setMessage("Are you sure you want to reset records?")
+            .setPositiveButton("Yes") { _, _ ->
+                when (selection) {
+                    "cycling" -> getSharedPreferences(selection, MODE_PRIVATE).edit { clear() }
+                    "running" -> getSharedPreferences(selection, MODE_PRIVATE).edit { clear() }
+                    else -> {
+                        getSharedPreferences("cycling", MODE_PRIVATE).edit { clear() }
+                        getSharedPreferences("running", MODE_PRIVATE).edit { clear() }
+                    }
+                }
+                refresh()
+            }
+            .setNegativeButton("No", null)
+            .show()
+
+
+    }
+
+    private fun refresh() {
         when (binding.bottomNav.selectedItemId) {
             R.id.nav_cycling -> onCyclingClicked()
             R.id.nav_running -> onRunningClicked()
         }
-        return menuClickedHandled
     }
 
     private fun onRunningClicked(): Boolean {
