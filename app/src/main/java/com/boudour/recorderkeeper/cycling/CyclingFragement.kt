@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.boudour.recorderkeeper.CYCLING
 import com.boudour.recorderkeeper.databinding.FragementCyclingBinding
 import com.boudour.recorderkeeper.editRecord.EditRecordActivity
 import com.boudour.recorderkeeper.editRecord.INTENT_EXTRA_SCREEN_DATA
@@ -36,20 +35,20 @@ class CyclingFragement : Fragment() {
 
     private fun displayCyclingRecords() {
         val cyclingPreferences =
-            requireContext().getSharedPreferences(CYCLING, Context.MODE_PRIVATE)
+            requireContext().getSharedPreferences(FILENAME, Context.MODE_PRIVATE)
 
         binding.textViewLongestRideValue.text =
-            cyclingPreferences.getString("Longest Ride record", null)
+            cyclingPreferences.getString("Longest Ride ${EditRecordActivity.SHARED_PREFERENCES_RECORD_KEY}", null)
         binding.textViewLongestRideDate.text =
-            cyclingPreferences.getString("Longest Ride date", null)
+            cyclingPreferences.getString("Longest Ride ${EditRecordActivity.SHARED_PREFERENCES_DATE_KEY}", null)
         binding.textViewBiggestClimbValue.text =
-            cyclingPreferences.getString("Biggest Climb record", null)
+            cyclingPreferences.getString("Biggest Climb ${EditRecordActivity.SHARED_PREFERENCES_RECORD_KEY}", null)
         binding.textViewBiggestClimbDate.text =
-            cyclingPreferences.getString("Biggest Climb date", null)
+            cyclingPreferences.getString("Biggest Climb ${EditRecordActivity.SHARED_PREFERENCES_DATE_KEY}", null)
         binding.textViewBestAverageSpeedValue.text =
-            cyclingPreferences.getString("Best Average Speed record", null)
+            cyclingPreferences.getString("Best Average Speed ${EditRecordActivity.SHARED_PREFERENCES_RECORD_KEY}", null)
         binding.textViewBestAverageSpeedDate.text =
-            cyclingPreferences.getString("Best Average Speed date", null)
+            cyclingPreferences.getString("Best Average Speed ${EditRecordActivity.SHARED_PREFERENCES_DATE_KEY}", null)
     }
 
     private fun setupClickListeners() {
@@ -59,6 +58,7 @@ class CyclingFragement : Fragment() {
                 "Distance"
             )
         }
+
         binding.containerBiggestClimb.setOnClickListener {
             launchCyclingRecordScreen(
                 "Biggest Climb",
@@ -77,9 +77,13 @@ class CyclingFragement : Fragment() {
         val intent = Intent(context, EditRecordActivity::class.java)
         intent.putExtra(
             INTENT_EXTRA_SCREEN_DATA,
-            EditRecordActivity.ScreenData(record, CYCLING, recordFieldHint)
+            EditRecordActivity.ScreenData(record, FILENAME, recordFieldHint)
         )
         startActivity(intent)
+    }
+
+    companion object {
+        const val FILENAME = "cycling"
     }
 
 }

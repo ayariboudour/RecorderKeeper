@@ -13,10 +13,6 @@ import com.boudour.recorderkeeper.running.RunningFragement
 import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.snackbar.Snackbar
 
-const val RUNNING = "running"
-const val CYCLING = "cycling"
-const val ALL = "all"
-
 class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListener {
 
     private lateinit var binding: ActivityMainBinding
@@ -40,17 +36,17 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
         val menuClickedHandled =
             when (item.itemId) {
                 R.id.reset_running -> {
-                    showConfirmationDialog(RUNNING)
+                    showConfirmationDialog(RUNNING_DISPLAY_VALUE)
                     true
                 }
 
                 R.id.reset_cycling -> {
-                    showConfirmationDialog(CYCLING)
+                    showConfirmationDialog(CYCLING_DISPLAY_VALUE)
                     true
                 }
 
                 R.id.reset_all -> {
-                    showConfirmationDialog(ALL)
+                    showConfirmationDialog(ALL_DISPLAY_VALUE)
                     true
                 }
 
@@ -68,11 +64,19 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
             .setMessage("Are you sure you want to reset records?")
             .setPositiveButton("Yes") { _, _ ->
                 when (selection) {
-                    RUNNING -> getSharedPreferences(selection, MODE_PRIVATE).edit { clear() }
-                    CYCLING -> getSharedPreferences(selection, MODE_PRIVATE).edit { clear() }
+                    RUNNING_DISPLAY_VALUE -> getSharedPreferences(
+                        selection,
+                        MODE_PRIVATE
+                    ).edit { clear() }
+
+                    CYCLING_DISPLAY_VALUE -> getSharedPreferences(
+                        selection,
+                        MODE_PRIVATE
+                    ).edit { clear() }
+
                     else -> {
-                        getSharedPreferences(CYCLING, MODE_PRIVATE).edit { clear() }
-                        getSharedPreferences(RUNNING, MODE_PRIVATE).edit { clear() }
+                        getSharedPreferences(CYCLING_DISPLAY_VALUE, MODE_PRIVATE).edit { clear() }
+                        getSharedPreferences(RUNNING_DISPLAY_VALUE, MODE_PRIVATE).edit { clear() }
                     }
                 }
                 refresh()
@@ -117,5 +121,11 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
         R.id.nav_cycling -> onCyclingClicked()
         R.id.nav_running -> onRunningClicked()
         else -> false
+    }
+
+    companion object {
+        const val RUNNING_DISPLAY_VALUE = "running"
+        const val CYCLING_DISPLAY_VALUE = "cycling"
+        const val ALL_DISPLAY_VALUE = "all"
     }
 }

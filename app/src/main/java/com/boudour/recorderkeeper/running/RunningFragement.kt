@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.boudour.recorderkeeper.RUNNING
 import com.boudour.recorderkeeper.databinding.FragementRunningBinding
 import com.boudour.recorderkeeper.editRecord.EditRecordActivity
 import com.boudour.recorderkeeper.editRecord.INTENT_EXTRA_SCREEN_DATA
@@ -37,18 +36,42 @@ class RunningFragement : Fragment() {
 
     private fun displayRunningRecords() {
         val runningPreferences =
-            requireContext().getSharedPreferences(RUNNING, Context.MODE_PRIVATE)
+            requireContext().getSharedPreferences(FILENAME, Context.MODE_PRIVATE)
 
-        binding.textView5kmValue.text = runningPreferences.getString("5km record", null)
-        binding.textView5kmDate.text = runningPreferences.getString("5km date", null)
-        binding.textView10kmValue.text = runningPreferences.getString("10km record", null)
-        binding.textView10kmDate.text = runningPreferences.getString("10km date", null)
+        binding.textView5kmValue.text = runningPreferences.getString(
+            "5km ${EditRecordActivity.SHARED_PREFERENCES_RECORD_KEY}",
+            null
+        )
+        binding.textView5kmDate.text = runningPreferences.getString(
+            "5km ${EditRecordActivity.SHARED_PREFERENCES_DATE_KEY}",
+            null
+        )
+        binding.textView10kmValue.text = runningPreferences.getString(
+            "10km ${EditRecordActivity.SHARED_PREFERENCES_RECORD_KEY}",
+            null
+        )
+        binding.textView10kmDate.text = runningPreferences.getString(
+            "10km ${EditRecordActivity.SHARED_PREFERENCES_DATE_KEY}",
+            null
+        )
         binding.textViewHalfMarathonValue.text =
-            runningPreferences.getString("Half Marathon record", null)
+            runningPreferences.getString(
+                "Half Marathon ${EditRecordActivity.SHARED_PREFERENCES_RECORD_KEY}",
+                null
+            )
         binding.textViewHalfMarathonDate.text =
-            runningPreferences.getString("Half Marathon date", null)
-        binding.textViewMarathonValue.text = runningPreferences.getString("Marathon record", null)
-        binding.textViewMarathonDate.text = runningPreferences.getString("Marathon date", null)
+            runningPreferences.getString(
+                "Half Marathon ${EditRecordActivity.SHARED_PREFERENCES_DATE_KEY}",
+                null
+            )
+        binding.textViewMarathonValue.text = runningPreferences.getString(
+            "Marathon ${EditRecordActivity.SHARED_PREFERENCES_RECORD_KEY}",
+            null
+        )
+        binding.textViewMarathonDate.text = runningPreferences.getString(
+            "Marathon ${EditRecordActivity.SHARED_PREFERENCES_DATE_KEY}",
+            null
+        )
     }
 
     private fun setupClickListeners() {
@@ -70,8 +93,12 @@ class RunningFragement : Fragment() {
         val intent = Intent(context, EditRecordActivity::class.java)
         intent.putExtra(
             INTENT_EXTRA_SCREEN_DATA,
-            EditRecordActivity.ScreenData(distance, RUNNING, "Time")
+            EditRecordActivity.ScreenData(distance, FILENAME, "Time")
         )
         startActivity(intent)
+    }
+
+    companion object {
+        const val FILENAME = "running"
     }
 }

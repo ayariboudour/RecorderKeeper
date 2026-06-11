@@ -59,11 +59,11 @@ class EditRecordActivity : AppCompatActivity() {
     private fun displayRecord() {
         binding.editTextRecord.setText(
             recordPreferences.getString(
-                "${screenData.record} record",
+                "${screenData.record} $SHARED_PREFERENCES_RECORD_KEY",
                 null
             )
         )
-        binding.editTextDate.setText(recordPreferences.getString("${screenData.record} date", null))
+        binding.editTextDate.setText(recordPreferences.getString("${screenData.record} $SHARED_PREFERENCES_DATE_KEY", null))
     }
 
     private fun saveRecord() {
@@ -71,15 +71,15 @@ class EditRecordActivity : AppCompatActivity() {
         val date = binding.editTextDate.text.toString()
 
         recordPreferences.edit {
-            putString("${screenData.record} record", record)
-            putString("${screenData.record} date", date)
+            putString("${screenData.record} $SHARED_PREFERENCES_RECORD_KEY", record)
+            putString("${screenData.record} $SHARED_PREFERENCES_DATE_KEY", date)
         }
     }
 
     private fun clearRecord() {
         recordPreferences.edit {
-            remove("${screenData.record} record")
-            remove("${screenData.record} date")
+            remove("${screenData.record} $SHARED_PREFERENCES_RECORD_KEY")
+            remove("${screenData.record} $SHARED_PREFERENCES_DATE_KEY")
         }
     }
 
@@ -88,4 +88,9 @@ class EditRecordActivity : AppCompatActivity() {
         val sharedPreferencesName: String,
         val recordFieldHint: String,
     ) : Serializable
+
+    companion object {
+        const val SHARED_PREFERENCES_RECORD_KEY = "record"
+        const val SHARED_PREFERENCES_DATE_KEY = "date"
+    }
 }
