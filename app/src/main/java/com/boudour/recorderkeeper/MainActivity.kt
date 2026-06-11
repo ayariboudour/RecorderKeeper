@@ -11,6 +11,7 @@ import com.boudour.recorderkeeper.cycling.CyclingFragement
 import com.boudour.recorderkeeper.databinding.ActivityMainBinding
 import com.boudour.recorderkeeper.running.RunningFragement
 import com.google.android.material.navigation.NavigationBarView
+import com.google.android.material.snackbar.Snackbar
 
 class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListener {
 
@@ -51,7 +52,6 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
                 else -> {
                     super.onOptionsItemSelected(item)
                 }
-
             }
 
         return menuClickedHandled
@@ -71,11 +71,20 @@ class MainActivity : AppCompatActivity(), NavigationBarView.OnItemSelectedListen
                     }
                 }
                 refresh()
+                showConfirmation()
             }
             .setNegativeButton("No", null)
             .show()
+    }
 
-
+    private fun showConfirmation() {
+        val snackbar =
+            Snackbar.make(binding.root, "Record reset successfully", Snackbar.LENGTH_SHORT)
+        snackbar.anchorView = binding.bottomNav
+        snackbar.setAction("undo") {
+            // Undo logic can be implemented here if needed
+        }
+        snackbar.show()
     }
 
     private fun refresh() {
