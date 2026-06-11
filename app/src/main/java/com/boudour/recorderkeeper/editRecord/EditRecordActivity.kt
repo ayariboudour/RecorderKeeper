@@ -2,6 +2,7 @@ package com.boudour.recorderkeeper.editRecord
 
 import android.os.Build
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
 import com.boudour.recorderkeeper.databinding.ActivityEditRecordBinding
@@ -38,6 +39,16 @@ class EditRecordActivity : AppCompatActivity() {
         setContentView(binding.root)
         setupUi()
         displayRecord()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            android.R.id.home -> {
+                onBackPressedDispatcher.onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun setupUi() {
