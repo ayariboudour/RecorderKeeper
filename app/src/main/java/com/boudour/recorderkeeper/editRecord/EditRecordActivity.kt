@@ -1,5 +1,6 @@
 package com.boudour.recorderkeeper.editRecord
 
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
@@ -11,8 +12,12 @@ class EditRecordActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEditRecordBinding
 
     private val screenData: ScreenData by lazy {
-        @Suppress("DEPRECATION")
-        intent.getSerializableExtra("screen_data") as ScreenData
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getSerializableExtra("screen_data", ScreenData::class.java) as ScreenData
+        } else {
+            @Suppress("DEPRECATION")
+            intent.getSerializableExtra("screen_data") as ScreenData
+        }
     }
 
     private val recordPreferences by lazy { getSharedPreferences(screenData.sharedPreferencesName, MODE_PRIVATE) }
